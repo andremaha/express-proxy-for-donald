@@ -8,6 +8,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 3000;
+
 app.get('/search/quote', function(req,res) {
 	var query = req.query.query;
   var newurl = 'https://api.tronalddump.io/search/quote?query=' + query;
@@ -15,6 +18,6 @@ app.get('/search/quote', function(req,res) {
 });
 
 
-app.listen(80, () => {
-  console.log('Listening on: http://localhost:80');
+app.listen(port, () => {
+  console.log('Listening on: ' + port);
 });
