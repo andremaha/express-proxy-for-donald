@@ -1,5 +1,7 @@
 const express = require('express');
 var request = require('request');
+var fs = require('fs');
+const _ = require('lodash');
 const app = express();
 
 app.use(function(req, res, next) {
@@ -17,6 +19,14 @@ app.get('/search/quote', function(req,res) {
   request(newurl).pipe(res);
 });
 
+app.get('/hundewissen', function(req,res){
+
+  var input = fs.readFileSync('hundewissen.txt').toString().split("\n");
+
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ facts: [_.sample(input)] }));
+
+})
 
 app.listen(port, () => {
   console.log('Listening on: ' + port);
